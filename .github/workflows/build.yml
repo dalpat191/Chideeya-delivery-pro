@@ -26,3 +26,31 @@ jobs:
         with:
           name: chideeya-apk
           path: client_app/build/app/outputs/flutter-apk/app-release.apk
+name: build
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.3'
+          channel: 'stable'
+      - name: Build APK
+        working-directory: client_app
+        run: |
+          if [! -d "android" ]; then
+            flutter create. --platforms android
+          fi
+          flutter pub get
+          flutter build apk --release
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: chideeya-apk
+          path: client_app/build/app/outputs/flutter-apk/app-release.apk
