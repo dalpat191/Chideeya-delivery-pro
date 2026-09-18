@@ -17,11 +17,11 @@ jobs:
         run: |
           cd client_app
           rm -rf android
-          flutter create --platforms=android --org com.chideeya.delivery --project-name chideeya_client.
-          flutter pub get
+          flutter create --platforms=android.
       - name: Build APK
         run: |
           cd client_app
+          flutter pub get
           flutter build apk --release
       - name: Upload APK
         uses: actions/upload-artifact@v4
