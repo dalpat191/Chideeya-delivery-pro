@@ -11,18 +11,17 @@ jobs:
           java-version: '17'
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.6'
+          flutter-version: '3.22.0'
           channel: 'stable'
-      - name: Fix Project
+      - name: Fix and Build
         run: |
           cd client_app
-          flutter create --platforms=android --org com.chideeya --project-name chideeya_client.
+          ls -la
+          cat pubspec.yaml
           flutter pub get
-      - name: Build APK
-        run: |
-          cd client_app
-          flutter build apk --release
+          flutter build apk --release --verbose
       - name: Upload APK
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: chideeya-client-apk
