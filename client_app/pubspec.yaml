@@ -1,0 +1,13 @@
+name: chideeya_client
+description: Chideeya Delivery Pro Client
+publish_to: 'none'
+version: 1.0.0+1
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+dependencies:
+  flutter:
+    sdk: flutter
+  cloud_firestore: ^4.15.0
+  firebase_core: ^2.24.0
+flutter:
+  uses-material-design: true
