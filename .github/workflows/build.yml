@@ -11,20 +11,17 @@ jobs:
           java-version: '17'
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.0'
+          flutter-version: '3.22.3'
           channel: 'stable'
-      - name: Rebuild Android Folder
+      - name: Build Fresh APK
         run: |
           cd client_app
-          rm -rf android
-          flutter create --platforms=android --org com.chideeya.delivery --project-name chideeya_client.
+          flutter clean
+          flutter create --platforms=android --org com.chideeya.app.
           flutter pub get
-      - name: Build APK
-        run: |
-          cd client_app
           flutter build apk --release
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: chideeya-client-apk
+          name: chideeya-apk
           path: client_app/build/app/outputs/flutter-apk/app-release.apk
