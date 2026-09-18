@@ -16,7 +16,6 @@ jobs:
       - name: Build Fresh APK
         run: |
           cd client_app
-          flutter clean
           flutter create --platforms=android --org com.chideeya.app.
           flutter pub get
           flutter build apk --release
