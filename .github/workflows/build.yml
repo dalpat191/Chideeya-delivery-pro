@@ -13,15 +13,17 @@ jobs:
         with:
           flutter-version: '3.22.0'
           channel: 'stable'
-      - name: Fix and Build
+      - name: Rebuild Android Folder
         run: |
           cd client_app
-          ls -la
-          cat pubspec.yaml
+          rm -rf android
+          flutter create --platforms=android --org com.chideeya.delivery --project-name chideeya_client.
           flutter pub get
-          flutter build apk --release --verbose
+      - name: Build APK
+        run: |
+          cd client_app
+          flutter build apk --release
       - name: Upload APK
-        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: chideeya-client-apk
