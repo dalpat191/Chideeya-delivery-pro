@@ -1,0 +1,14 @@
+{
+  "owner": "dalpat191",
+  "referral_bonus_client": 50,
+  "rider_per_delivery": 30,
+  "lucky_draw": {
+    "tickets_for_draw": 50,
+    "prizes": [
+      {"name": "10 Lakh Mega Prize", "count_per_month": 1},
+      {"name": "1 Lakh", "count_per_month": 2},
+      {"name": "50000 Cash", "count_per_month": 5},
+      {"name": "500 Wallet", "count_per_day": 10}
+    ]
+  }
+}
