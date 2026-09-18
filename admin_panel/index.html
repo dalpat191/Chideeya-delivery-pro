@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html><head><title>Chideeya Admin - dalpat191</title>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+<style>body{font-family:sans-serif;padding:20px} table{width:100%;border-collapse:collapse} th,td{border:1px solid #ccc;padding:8px}.gold{background:gold;padding:15px;font-size:18px;border:none;cursor:pointer}</style>
+</head><body>
+<h1>Chideeya Admin - dalpat191</h1>
+<h3>🎰 10 Lakh Lucky Draw</h3>
+<button class="gold" onclick="runDraw()">DRAW NIKALO - 10 LAKH</button>
+<div id="winner" style="margin:20px;font-size:24px;font-weight:bold"></div>
+<h3>Live Orders</h3>
+<table id="t"><tr><th>Pickup</th><th>Drop</th><th>Status</th><th>Action</th></tr></table>
+<script>
+const firebaseConfig = {apiKey: "YOUR_API_KEY", authDomain: "YOUR_PROJECT.firebaseapp.com", projectId: "YOUR_PROJECT"};
+firebase.initializeApp(firebaseConfig); const db=firebase.firestore();
+db.collection("orders").onSnapshot(s=>{let h="<tr><th>Pickup</th><th>Drop</th><th>Status</th><th>Action</th></tr>";s.forEach(d=>{let x=d.data();h+=`<tr><td>${x.pickup}</td><td>${x.drop}</td><td>${x.status}</td><td><button onclick="db.collection('orders').doc('${d.id}').update({status:'delivered'})">Done</button></td></tr>`});document.getElementById("t").innerHTML=h;});
+function runDraw(){db.collection("rider_stats").where("totalDeliveries",">=",50).get().then(s=>{if(s.empty){alert("Koi 50+ wala nahi");return;}let r=s.docs[Math.floor(Math.random()*s.docs.length)];let prize=["10 Lakh","1 Lakh","50,000","10,000","500"][Math.floor(Math.random()*5)];db.collection("lucky_winners").add({riderId:r.id, prize:prize, date:new Date()});document.getElementById("winner").innerHTML="WINNER: "+r.id+" - PRIZE: Rs "+prize;});}
+</script></body></html>
